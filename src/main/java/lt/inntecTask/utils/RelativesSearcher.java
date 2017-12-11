@@ -28,7 +28,7 @@ public class RelativesSearcher {
         relativesDTO.setSon(new RelativesSearcher().isSon(personList, person));
         relativesDTO.setSon(new RelativesSearcher().isDaugther(personList, person));
 
-//        vyras, žmona, sūnus, dukra, tėvas, motina, senelis, senelė, anūkas, anūkė, sesuo, brolis
+//        senelis, senelė, anūkas, anūkė
 
         return relativesDTO;
     }
@@ -50,15 +50,114 @@ public class RelativesSearcher {
                         && s.getSurname().substring(s.getSurname().length()-3).matches("ytė")
                         || s.getSurname().substring(s.getSurname().length()-4).matches("aitė")
                         || s.getSurname().substring(s.getSurname().length()-3).matches("ūtė"))
+            .collect(Collectors.toList());
+        return prsnList;
+}
+
+    private List<Person> isFather (List<Person> personList, Person person){
+        prsnList = personList.stream()
+                .filter(s -> yearsSubstraction(s.getDate(), person.getDate()) >= 16
+                        && yearsSubstraction(s.getDate(), person.getDate()) <= 40
+                        && s.getSurname().substring(s.getSurname().length()-3).matches("s"))
+                .collect(Collectors.toList());
+        return prsnList;
+    }
+
+    private List<Person> isMother (List<Person> personList, Person person){
+        prsnList = personList.stream()
+                .filter(s -> yearsSubstraction(s.getDate(), person.getDate()) >= 16
+                        && yearsSubstraction(s.getDate(), person.getDate()) <= 40
+                        && s.getSurname().substring(s.getSurname().length()-3).matches("ytė")
+                        || s.getSurname().substring(s.getSurname().length()-4).matches("aitė")
+                        || s.getSurname().substring(s.getSurname().length()-3).matches("ūtė"))
+                .collect(Collectors.toList());
+        return prsnList;
+    }
+
+    private List<Person> isBrother (List<Person> personList, Person person){
+        prsnList = personList.stream()
+                .filter(s -> yearsSubstraction(s.getDate(), person.getDate()) >= 0
+                        && yearsSubstraction(s.getDate(), person.getDate()) <= 15
+                        && person.getSurname().matches(s.getSurname()))
+                .collect(Collectors.toList());
+        return prsnList;
+    }
+
+    private List<Person> isSister (List<Person> personList, Person person){
+        prsnList = personList.stream()
+                .filter(s -> yearsSubstraction(s.getDate(), person.getDate()) >= 0
+                        && yearsSubstraction(s.getDate(), person.getDate()) <= 15
+                        && s.getSurname().substring(s.getSurname().length()-3).matches("ytė")
+                        || s.getSurname().substring(s.getSurname().length()-4).matches("aitė")
+                        || s.getSurname().substring(s.getSurname().length()-3).matches("ūtė"))
+                .collect(Collectors.toList());
+        return prsnList;
+    }
+
+    private List<Person> isWife (List<Person> personList, Person person){
+        prsnList = personList.stream()
+                .filter(s -> yearsSubstraction(s.getDate(), person.getDate()) >= 0
+                        && yearsSubstraction(s.getDate(), person.getDate()) <= 15
+                        && s.getSurname().substring(0, s.getSurname().length()-4)
+                            .matches(person.getSurname().substring(0, person.getSurname().length() -1))
+                        && s.getSurname().substring(s.getSurname().length()-4).matches("ienė"))
+                .collect(Collectors.toList());
+        return prsnList;
+    }
+
+    private List<Person> isHusband (List<Person> personList, Person person){
+        prsnList = personList.stream()
+                .filter(s -> yearsSubstraction(s.getDate(), person.getDate()) >= 0
+                        && yearsSubstraction(s.getDate(), person.getDate()) <= 15
+                        && s.getSurname().substring(0, s.getSurname().length()-1)
+                            .matches(person.getSurname().substring(0, person.getSurname().length() -4))
+                        && s.getSurname().substring(s.getSurname().length()-1).matches("s"))
+                .collect(Collectors.toList());
+        return prsnList;
+    }
+
+    private List<Person> isGrandSon (List<Person> personList, Person person){
+        prsnList = personList.stream()
+                .filter(s -> yearsSubstraction(s.getDate(), person.getDate()) >= 41
+                        && s.getSurname().substring(s.getSurname().length()-1).matches("s"))
+                .collect(Collectors.toList());
+        return prsnList;
+    }
+
+    private List<Person> isGrandDaugther (List<Person> personList, Person person){
+        prsnList = personList.stream()
+                .filter(s -> yearsSubstraction(s.getDate(), person.getDate()) >= 41
+                        && s.getSurname().substring(s.getSurname().length()-3).matches("ytė")
+                        || s.getSurname().substring(s.getSurname().length()-4).matches("aitė")
+                        || s.getSurname().substring(s.getSurname().length()-3).matches("ūtė"))
+                .collect(Collectors.toList());
+        return prsnList;
+    }
+
+    private List<Person> isGrandFather (List<Person> personList, Person person){
+        prsnList = personList.stream()
+                .filter(s -> yearsSubstraction(person.getDate(), s.getDate()) >= 41
+                        && s.getSurname().substring(s.getSurname().length()-1).matches("s"))
+                .collect(Collectors.toList());
+        return prsnList;
+    }
+
+    private List<Person> isGrandMother (List<Person> personList, Person person){
+        prsnList = personList.stream()
+                .filter(s -> yearsSubstraction(person.getDate(), s.getDate()) >= 41
+                        && s.getSurname().substring(0, s.getSurname().length()-4)
+                        .matches(person.getSurname().substring(0, person.getSurname().length() -1))
+                        && s.getSurname().substring(s.getSurname().length()-4).matches("ienė"))
                 .collect(Collectors.toList());
         return prsnList;
     }
 
 
-    private int yearsSubstraction (Date personYear, Date relativeYear) {
+
+    private int yearsSubstraction (Date firstYear, Date secondYear) {
         // YODA time
-//        LocalDate prsnYear = LocalDate.fromDateFields(personYear);
-//        LocalDate rltvYear = LocalDate.fromDateFields(relativeYear);
+//        LocalDate prsnYear = LocalDate.fromDateFields(firstYear);
+//        LocalDate rltvYear = LocalDate.fromDateFields(secondYear);
 //
 //        Period period = new Period(prsnYear, rltvYear);
 //        long diff = Math.abs(period.getYears());
@@ -68,8 +167,8 @@ public class RelativesSearcher {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
 
-            java.util.Date firstDate = sdf.parse(String.valueOf(personYear));
-            java.util.Date secondDate = sdf.parse(String.valueOf(relativeYear));
+            java.util.Date firstDate = sdf.parse(String.valueOf(firstYear));
+            java.util.Date secondDate = sdf.parse(String.valueOf(secondYear));
 
             long diffInMillies = Math.abs(firstDate.getTime() - secondDate.getTime());
             diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS) / 365;
