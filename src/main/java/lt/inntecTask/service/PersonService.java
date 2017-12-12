@@ -11,6 +11,10 @@ public class PersonService implements IPersonService {
     @Autowired
     private IPersonDao personDao;
 
+    public PersonService(IPersonDao personDao) {
+        this.personDao = personDao;
+    }
+
     @Override
     public List<Person> personList() {
         return personDao.personList();

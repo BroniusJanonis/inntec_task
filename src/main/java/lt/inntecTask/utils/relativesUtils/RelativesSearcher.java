@@ -1,4 +1,4 @@
-package lt.inntecTask.utils;
+package lt.inntecTask.utils.relativesUtils;
 
 import lt.inntecTask.models.Person;
 import lt.inntecTask.modelsDTO.RelativesDTO;

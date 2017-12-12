@@ -1,12 +1,11 @@
-package lt.inntecTask.utils;
+package lt.inntecTask.utils.relativesUtils.kindshipUtils;
 
 import lt.inntecTask.models.Person;
 
 public class KindshipSubstring {
 
-    private boolean pass = false;
-
-    boolean isUnmarriedWoman(Person person){
+    public boolean isUnmarriedWoman(Person person){
+        boolean pass = false;
         String surname = person.getSurname();
         if(surname.substring(surname.length()-3).matches("ytė")
                 || surname.substring(surname.length()-4).matches("aitė")
@@ -18,7 +17,8 @@ public class KindshipSubstring {
         return pass;
     }
 
-    boolean isMarriedWoman(Person person){
+    public boolean isMarriedWoman(Person person){
+        boolean pass = false;
         String surname = person.getSurname();
         if(surname.substring(surname.length()-4).matches("ienė"))
         {
@@ -28,7 +28,8 @@ public class KindshipSubstring {
     }
 
 
-    boolean isMan(Person person){
+    public boolean isMan(Person person){
+        boolean pass = false;
         String surname = person.getSurname();
         if(surname.substring(surname.length()-1).matches("s"))
         {

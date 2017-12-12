@@ -1,4 +1,4 @@
-package lt.inntecTask.utils;
+package lt.inntecTask.utils.validatorsUtils;
 
 import lt.inntecTask.models.Person;
 import org.springframework.stereotype.Component;
@@ -30,6 +30,7 @@ public class PersonValidator implements Validator{
         if(person.getSurname().length() <= 2 || person.getSurname().length() >= 50){
             errors.rejectValue("surname", "Size.surname");
         }
+
     }
 
 }
