@@ -9,7 +9,7 @@ import java.util.List;
 public class PersonService implements IPersonService {
 
     @Autowired
-    IPersonDao personDao;
+    private IPersonDao personDao;
 
     @Override
     public List<Person> personList() {

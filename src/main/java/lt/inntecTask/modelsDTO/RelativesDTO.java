@@ -5,18 +5,18 @@ import lt.inntecTask.models.Person;
 import java.util.List;
 
 public class RelativesDTO {
-    List<Person> son;
-    List<Person> daughter;
-    List<Person> husband;
-    List<Person> wife;
-    List<Person> father;
-    List<Person> mother;
-    List<Person> grandfather;
-    List<Person> grandmother;
-    List<Person> brother;
-    List<Person> sister;
-    List<Person> grandSon;
-    List<Person> grandDaughter;
+    private List<Person> son;
+    private List<Person> daughter;
+    private List<Person> husband;
+    private List<Person> wife;
+    private List<Person> father;
+    private List<Person> mother;
+    private List<Person> grandfather;
+    private List<Person> grandmother;
+    private List<Person> brother;
+    private List<Person> sister;
+    private List<Person> grandSon;
+    private List<Person> grandDaughter;
 
     // TO DO: DESIGN PATTERN BUILDER
     public RelativesDTO() {
