@@ -2,7 +2,6 @@ package lt.inntecTask.utils;
 
 import lt.inntecTask.models.Person;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
