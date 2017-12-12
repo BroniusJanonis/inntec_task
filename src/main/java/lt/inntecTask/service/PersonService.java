@@ -17,7 +17,7 @@ public class PersonService implements IPersonService {
     }
 
     @Override
-    public int updatePerson(Person person) {
+    public Person updatePerson(Person person) {
         return personDao.updatePerson(person);
     }
 }

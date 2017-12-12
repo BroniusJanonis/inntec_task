@@ -1,8 +1,6 @@
 package lt.inntecTask.repository;
 
 import lt.inntecTask.models.Person;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,10 +23,10 @@ public class PersonDao implements IPersonDao{
     }
 
     @Override
-    public int updatePerson(Person person) {
+    public Person updatePerson(Person person) {
         String sqlUpdatePageModel = "UPDATE inntec_person SET name='"+person.getName()+"'" +
                 ", surname='"+person.getSurname()+"', date='"+person.getDate()+"' WHERE id="+person.getId();
-        int updated = entityManager.createNativeQuery(sqlUpdatePageModel, Person.class).executeUpdate();
+        Person updated = entityManager.merge(person);
         return updated;
     }
 }

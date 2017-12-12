@@ -5,6 +5,7 @@ import jdk.nashorn.internal.objects.annotations.Getter;
 import jdk.nashorn.internal.objects.annotations.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Entity
@@ -19,6 +20,13 @@ public class Person {
     public Person() {
     }
 
+    public Person(long id, String name, String surname, Date date) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.date = date;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PERSON_ID", unique = true, nullable = false)
@@ -30,7 +38,8 @@ public class Person {
         this.id = id;
     }
 
-    @Column(name = "NAME", nullable = false, length = 50)
+    @Column(name = "NAME", nullable = false)
+    @Size(min = 2, max = 50)
     public String getName() {
         return name;
     }
@@ -39,7 +48,8 @@ public class Person {
         this.name = name;
     }
 
-    @Column(name = "SURNAME", nullable = false, length = 50)
+    @Column(name = "SURNAME", nullable = false)
+    @Size(min = 2, max = 50)
     public String getSurname() {
         return surname;
     }

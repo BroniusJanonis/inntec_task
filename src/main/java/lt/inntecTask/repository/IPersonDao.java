@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IPersonDao {
     List<Person> personList();
-    int updatePerson(Person person);
+    Person updatePerson(Person person);
 }
