@@ -1,5 +1,7 @@
 package lt.inntecTask;
 
+import lt.inntecTask.models.Person;
+import lt.inntecTask.utils.relativesUtils.kindshipUtils.KindshipSubstring;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 
@@ -42,5 +44,14 @@ public class MainTest {
         System.out.println(secondDate);
         System.out.println(diff);
 
+        Person relative = new Person();
+        relative.setSurname("Petraitytė-Antanienė");
+        Person person = new Person();
+        person.setSurname("Petraitis");
+        String[] split = relative.getSurname().split("-");
+
+        KindshipSubstring kindshipSubstring = new KindshipSubstring();
+        boolean b = kindshipSubstring.isRelatedBySecondSurname(relative, person);
+        System.out.println(b);
     }
 }
