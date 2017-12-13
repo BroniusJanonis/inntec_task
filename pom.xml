@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>lt.inntec_task</groupId>
-    <artifactId>inntec_task</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <!--<groupId>lt.inntec_task</groupId>-->
+    <!--<artifactId>inntec_task</artifactId>-->
+    <!--<version>1.0-SNAPSHOT</version>-->
 
-    <!--<artifactId>spring-boot-web-jsp</artifactId>-->
-    <!--<packaging>war</packaging>-->
-    <!--<name>Spring Boot Web JSP Example</name>-->
-    <!--<description>STest</description>-->
-    <!--<url>https://www.test.com</url>-->
-    <!--<version>1.0</version>-->
+    <artifactId>spring-boot-web-jsp</artifactId>
+    <packaging>war</packaging>
+    <name>Spring Boot Web JSP Example</name>
+    <description>STest</description>
+    <url>https://www.test.com</url>
+    <version>1.0</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -82,6 +82,19 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.194</version>
+        </dependency>
+
+        <!-- JSTL -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
+        <!-- Need this to embeded jasper -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

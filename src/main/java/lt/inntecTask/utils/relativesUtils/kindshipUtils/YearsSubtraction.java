@@ -1,6 +1,7 @@
 package lt.inntecTask.utils.relativesUtils.kindshipUtils;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.concurrent.TimeUnit;
