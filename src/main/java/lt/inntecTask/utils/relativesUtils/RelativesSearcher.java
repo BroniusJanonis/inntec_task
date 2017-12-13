@@ -12,7 +12,11 @@ public class RelativesSearcher {
     private Kinship kinship = new Kinship();
     private RelativesDTO relativesDTO = new RelativesDTO();
 
-    public RelativesDTO relativesSearchByPeron(List<Person> personList, Person person) {
+    public RelativesSearcher(Kinship kinship) {
+        this.kinship = kinship;
+    }
+
+    public RelativesDTO relativesSearchByPerson(List<Person> personList, Person person) {
 
         relativesDTO.setSon(kinship.isSon(personList, person));
         relativesDTO.setDaughter(kinship.isDaugther(personList, person));

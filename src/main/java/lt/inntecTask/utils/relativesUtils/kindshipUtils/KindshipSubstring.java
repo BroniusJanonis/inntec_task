@@ -1,7 +1,9 @@
 package lt.inntecTask.utils.relativesUtils.kindshipUtils;
 
 import lt.inntecTask.models.Person;
+import org.springframework.stereotype.Component;
 
+@Component
 public class KindshipSubstring {
 
     public boolean isMarriedWoman(Person person) {

@@ -53,5 +53,33 @@ public class MainTest {
         KindshipSubstring kindshipSubstring = new KindshipSubstring();
         boolean b = kindshipSubstring.isRelatedBySecondSurname(relative, person);
         System.out.println(b);
+
+        System.out.println();
+        System.out.println("compareTo() the same enums: " + TestEnum.name.compareTo(TestEnum.name));
+        System.out.println("compareTo() different enums: " + TestEnum.name.compareTo(TestEnum.surname));
+        System.out.println("name() method: " + TestEnum.name.name());
+        System.out.println("ordinam() method: " + TestEnum.Numb1.ordinal());
+        System.out.println("toString() method: " + TestEnum.name.toString());
+        System.out.println("equals() the same enums: " + TestEnum.name.equals(TestEnum.name));
+        System.out.println("equals() different enums: " + TestEnum.name.equals(TestEnum.surname));
+        System.out.println("getValue() getter method: " + TestEnum.Numb1.getValue());
+
     }
+
+    public enum TestEnum{
+        name(0),
+        surname(0),
+        Numb1(1),
+        date(0);
+
+        private final int value;
+        TestEnum(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
 }

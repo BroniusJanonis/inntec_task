@@ -44,7 +44,7 @@ public class PersonController {
 
         // TO DO: parser of object
         List<Person> personList = personDao.personList();
-        RelativesDTO relativesDTOS = relativesSearcher.relativesSearchByPeron(personList, person);
+        RelativesDTO relativesDTOS = relativesSearcher.relativesSearchByPerson(personList, person);
         model.addAttribute("relativesList", relativesDTOS);
 
         return "PersonPage";

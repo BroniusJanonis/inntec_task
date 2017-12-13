@@ -2,6 +2,7 @@ package lt.inntecTask.modelsDTO;
 
 import lt.inntecTask.models.Person;
 
+import javax.persistence.Entity;
 import java.util.List;
 
 public class RelativesDTO {

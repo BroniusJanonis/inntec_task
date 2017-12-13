@@ -3,11 +3,13 @@ package lt.inntecTask.utils.relativesUtils;
 import lt.inntecTask.models.Person;
 import lt.inntecTask.utils.relativesUtils.kindshipUtils.KindshipSubstring;
 import lt.inntecTask.utils.relativesUtils.kindshipUtils.YearsSubtraction;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class Kinship {
 
     private List<Person> prsnList = new ArrayList<>();

@@ -1,8 +1,11 @@
 package lt.inntecTask.utils.relativesUtils.kindshipUtils;
 
+import org.springframework.stereotype.Component;
+
 import java.sql.Date;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class YearsSubtraction {
 
     private int daysInYears = 365;
