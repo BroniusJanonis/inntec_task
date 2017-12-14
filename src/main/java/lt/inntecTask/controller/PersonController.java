@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @ComponentScan({"lt.inntecTask"})
@@ -23,8 +25,8 @@ public class PersonController {
 
     @Autowired
     private PersonValidator personValidator;
-//    @Autowired
-//    private RelativesSearcher relativesSearcher;
+    @Autowired
+    private RelativesSearcher relativesSearcher;
     @Autowired
     Kinship kinship;
     @Autowired
@@ -41,22 +43,8 @@ public class PersonController {
     @RequestMapping(value = "/selectedPerson", method = RequestMethod.POST)
     public String getSelectedPerson(@ModelAttribute("person") Person person, Model model){
         List<Person> personList = personDao.personList();
-        // MAYBE ADING ModelAttribute("RelativesDTO") would solve the issue of Spring recognizing Object
-//        RelativesDTO relativesDTOS = relativesSearcher.relativesSearchByPerson(personList, person);
-        model.addAttribute("person", person);
-        model.addAttribute("sonList", kinship.isSon(personList, person));
-        model.addAttribute("daughterList", kinship.isDaugther(personList, person));
-        model.addAttribute("brotherList", kinship.isBrother(personList, person));
-        model.addAttribute("sisterList", kinship.isSister(personList, person));
-        model.addAttribute("wifeList", kinship.isWife(personList, person));
-        model.addAttribute("husbandList", kinship.isHusband(personList, person));
-        model.addAttribute("fatherList", kinship.isFather(personList, person));
-        model.addAttribute("motherList", kinship.isMother(personList, person));
-        model.addAttribute("grandfatherList", kinship.isGrandFather(personList, person));
-        model.addAttribute("grandmotherList", kinship.isGrandMother(personList, person));
-        model.addAttribute("grandsonList", kinship.isGrandSon(personList, person));
-        model.addAttribute("granddaughterList", kinship.isGrandDaugther(personList, person));
-
+        Map<String, List<Person>> relativesMap = relativesSearcher.relativesSearchByPerson(personList, person);
+        model.addAttribute("relativesMap", relativesMap);
         return "SelectedPerson";
     }
 

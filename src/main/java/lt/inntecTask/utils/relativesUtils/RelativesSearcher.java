@@ -5,34 +5,36 @@ import lt.inntecTask.modelsDTO.RelativesDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class RelativesSearcher {
 
     private Kinship kinship = new Kinship();
-    private RelativesDTO relativesDTO = new RelativesDTO();
+    private Map<String,List<Person>> map = new HashMap<String,List<Person>>();
 
     public RelativesSearcher(Kinship kinship) {
         this.kinship = kinship;
     }
 
-    public RelativesDTO relativesSearchByPerson(List<Person> personList, Person person) {
+    public Map<String,List<Person>> relativesSearchByPerson(List<Person> personList, Person person) {
 
-        relativesDTO.setSon(kinship.isSon(personList, person));
-        relativesDTO.setDaughter(kinship.isDaugther(personList, person));
-        relativesDTO.setBrother(kinship.isBrother(personList, person));
-        relativesDTO.setSister(kinship.isSister(personList, person));
-        relativesDTO.setMother(kinship.isMother(personList, person));
-        relativesDTO.setFather(kinship.isFather(personList, person));
-        relativesDTO.setHusband(kinship.isHusband(personList, person));
-        relativesDTO.setWife(kinship.isWife(personList, person));
-        relativesDTO.setGrandfather(kinship.isGrandFather(personList, person));
-        relativesDTO.setGrandmother(kinship.isGrandMother(personList, person));
-        relativesDTO.setGrandSon(kinship.isGrandSon(personList, person));
-        relativesDTO.setGrandDaughter(kinship.isGrandDaugther(personList, person));
+        map.put("son", kinship.isSon(personList, person));
+        map.put("daugther", kinship.isDaugther(personList, person));
+        map.put("brother", kinship.isBrother(personList, person));
+        map.put("sister", kinship.isSister(personList, person));
+        map.put("mother", kinship.isMother(personList, person));
+        map.put("father", kinship.isFather(personList, person));
+        map.put("husband", kinship.isHusband(personList, person));
+        map.put("wife", kinship.isWife(personList, person));
+        map.put("grandfather", kinship.isGrandFather(personList, person));
+        map.put("grandmother", kinship.isGrandMother(personList, person));
+        map.put("grandson", kinship.isGrandSon(personList, person));
+        map.put("granddaughter", kinship.isGrandDaugther(personList, person));
 
-        return relativesDTO;
+        return map;
     }
 
 

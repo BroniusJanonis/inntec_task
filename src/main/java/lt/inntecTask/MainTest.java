@@ -10,11 +10,15 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainTest {
 
+
     public static void main(String[] args) throws ParseException {
 
+        // 1. TIME TESTS
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
 
@@ -44,16 +48,32 @@ public class MainTest {
         System.out.println(secondDate);
         System.out.println(diff);
 
+        // 2. SPLIT TESTS
         Person relative = new Person();
-        relative.setSurname("Petraitytė-Antanienė");
+//        relative.setSurname("Petraitytė-Antanienė");
+        relative.setSurname("Petraitytė-Petraitienė");
         Person person = new Person();
         person.setSurname("Petraitis");
         String[] split = relative.getSurname().split("-");
+        System.out.println(split[split.length-1]);
 
         KindshipSubstring kindshipSubstring = new KindshipSubstring();
-        boolean b = kindshipSubstring.isRelatedBySecondSurname(relative, person);
-        System.out.println(b);
 
+        // 3. REGEX TESTS
+//        String relativeSurname = "Petraitaitė";
+        String relativeSurname = "Petraitienė";
+
+        String str = relativeSurname.replaceAll("(ienė|aitė|ūtė|ytė|is)$", "");
+        System.out.println(str);
+
+        Matcher m = Pattern.compile("(ienė|is|s)$").matcher(relativeSurname);
+        System.out.println(m.find());
+
+        boolean spouse = kindshipSubstring.isSpouse(relative, person);
+        System.out.println("Is spouse: " + spouse);
+
+
+        // 4. ENUM TESTS
         System.out.println();
         System.out.println("compareTo() the same enums: " + TestEnum.name.compareTo(TestEnum.name));
         System.out.println("compareTo() different enums: " + TestEnum.name.compareTo(TestEnum.surname));
@@ -63,7 +83,6 @@ public class MainTest {
         System.out.println("equals() the same enums: " + TestEnum.name.equals(TestEnum.name));
         System.out.println("equals() different enums: " + TestEnum.name.equals(TestEnum.surname));
         System.out.println("getValue() getter method: " + TestEnum.Numb1.getValue());
-
     }
 
     public enum TestEnum{

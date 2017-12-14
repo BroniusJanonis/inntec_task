@@ -5,7 +5,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <head>
-    <title>Hello, world!</title>
+    <title>Selected Person's Page</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,43 +15,53 @@
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
 <body>
-<h1>Update Person Page With Relatives List</h1>
+<h3>Update Person Page With Relatives List</h3>
 
 <div>
     <div class="container">
         <div class="row">
-                <form:form action="updastePeron" modelAttribute="person" method="post">
-                        <form:input type="text" name="id" value="${person.getId()}" path="" readonly="true"/><br>
-                        <form:input type="text" name="name" value="${person.getName()}" autofocus="true" path=""/>
-                        <form:errors path="name"></form:errors><br>
-                        <form:input type="text" name="surname" value="${person.getSurname()}" path=""/>
-                        <form:errors path="surname"></form:errors><br>
-                        <form:input type="date" name="date" value="${person.getDate()}" path=""/>
-                        <form:errors path="date"></form:errors><br>
-                        <form:button type="submit" class="button"> Update</form:button>
-                </form:form>
+            <form:form action="updastePeron" modelAttribute="person" method="post">
+                <form:input type="text" name="id" value="${person.getId()}" path="" readonly="true"/><br>
+                <form:input type="text" name="name" value="${person.getName()}" autofocus="true" path=""/>
+                <form:errors path="name"></form:errors><br>
+                <form:input type="text" name="surname" value="${person.getSurname()}" path=""/>
+                <form:errors path="surname"></form:errors><br>
+                <form:input type="date" name="date" value="${person.getDate()}" path=""/>
+                <form:errors path="date"></form:errors><br>
+                <form:button type="submit" class="button"> Update</form:button>
+            </form:form>
         </div>
         <div class="row">
-            <label>Relatives: </label>
-            <table class="table-view">
+            <table class="table-bordered">
                 <tr>
                     <td>Relationship</td>
                     <td>Name</td>
                     <td>Surname</td>
-                    <td>Birth Date</td>
+                    <td>Date</td>
                 </tr>
-                <c:forEach var="son" items="${sonList}">
+                <c:forEach var="relatives" items="${relativesMap}">
                     <tr>
-                        <td>Son</td>
-                        <td>${son.getName()}</td>
-                        <td>${son.getSurname()}</td>
-                        <td>${son.getDate()}</td>
+                    <tr>
+                        <td><b>${relatives.getKey()}</b></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <c:forEach items="${relatives.getValue()}" var="relativ">
+                        <tr>
+                            <td></td>
+                            <td>${relativ.getName()}</td>
+                            <td>${relativ.getSurname()}</td>
+                            <td>${relativ.getDate()}</td>
+                        </tr>
+                    </c:forEach>
                     </tr>
                 </c:forEach>
             </table>
         </div>
     </div>
 </div>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

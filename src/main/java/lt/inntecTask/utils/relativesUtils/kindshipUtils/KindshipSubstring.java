@@ -4,17 +4,12 @@ import lt.inntecTask.models.Person;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Component
 public class KindshipSubstring {
 
-    public boolean isMarriedWoman(Person person) {
-        boolean pass = false;
-        String surname = person.getSurname();
-        if (surname.substring(surname.length() - 4).matches("ienė")) {
-            pass = true;
-        }
-        return pass;
-    }
 
     public boolean isMan(Person person) {
         boolean pass = false;
@@ -34,47 +29,162 @@ public class KindshipSubstring {
         return pass;
     }
 
-    public boolean isRelatedByFirstSurname(Person relative, Person person) {
+    public boolean isRelateive(Person relative, Person person) {
         boolean pass = false;
-        String relativeSubstring = getFirstSurnameSubstring(relative);
-        String personSubstring = getFirstSurnameSubstring(person);
-        if (relativeSubstring.matches(personSubstring)) {
-            pass = true;
+
+        String[] splittedRelativeSurname = relative.getSurname().split("-");
+        String[] splittedPersonSurname = person.getSurname().split("-");
+
+        for (String rltv : splittedRelativeSurname) {
+            for (String prsn : splittedPersonSurname) {
+                if (surnameSubstringMatches(rltv, prsn)) {
+                    return true;
+                }
+            }
         }
+
         return pass;
     }
 
-    private String getFirstSurnameSubstring(Person relativeOrPerson) {
-        String[] firstSurname = relativeOrPerson.getSurname().split("-");
-        String surnameSubstring = getString(relativeOrPerson, firstSurname[0]);
-        return surnameSubstring;
-    }
-
-    public boolean isRelatedBySecondSurname(Person relative, Person person) {
+    private boolean surnameSubstringMatches(String relativeSurname, String personSurname) {
         boolean pass = false;
-        String relativeSubstring = getSecondSurnameSubstring(relative);
-        String personSubstring = getSecondSurnameSubstring(person);
-        if (relativeSubstring.matches(personSubstring)) {
-            pass = true;
+
+        String rltvSurname = relativeSurname.replaceAll("(ienė|aitė|ūtė|ytė|is|s)$", "");
+        String prsnSurname = personSurname.replaceAll("(ienė|aitė|ūtė|ytė|is|s)$", "");
+        if (rltvSurname.matches(prsnSurname)) {
+            return true;
         }
+
         return pass;
     }
 
-    private String getSecondSurnameSubstring(Person relativeOrPerson) {
-        String[] splittedSurname = relativeOrPerson.getSurname().split("-");
-        String secondSurname = splittedSurname[splittedSurname.length-1];
-        String surnameSubstring = getString(relativeOrPerson, secondSurname);
-        return surnameSubstring;
+    public boolean isSpouse(Person relative, Person person) {
+        boolean pass = false;
+        String[] splittedRelativeSurname = relative.getSurname().split("-");
+        String[] splittedPersonSurname = person.getSurname().split("-");
+        String lastRelativeSurname = splittedRelativeSurname[splittedRelativeSurname.length-1];
+        String lastPersonSurname = splittedPersonSurname[splittedPersonSurname.length-1];
+        Pattern patern = Pattern.compile("(ienė)$");
+        if (surnameSubstringMatches(lastRelativeSurname, lastPersonSurname)
+                && patern.matcher(lastRelativeSurname).find()
+                || patern.matcher(lastPersonSurname).find()) {
+            return true;
+        }
+
+        return pass;
     }
 
-    private String getString(Person relativeOrPerson, String surname) {
-        if (isWoman(relativeOrPerson) && surname.substring(surname.length() - 4).matches("ienė")) {
-            return surname.substring(0, surname.length() - 4);
-        } else if (isWoman(relativeOrPerson)) {
-            return surname.substring(0, surname.length() - 3);
-        }
-        return surname.substring(0, surname.length() - 2);
-    }
+
+
+//    public boolean isBrotherSister(Person relative, Person person) {
+//        boolean pass = false;
+//
+//        String[] splittedRelativeSurname = relative.getSurname().split("-");
+//        String[] splittedPersonSurname = person.getSurname().split("-");
+//
+//        for (String rltv : splittedRelativeSurname) {
+//            for (String prsn : splittedPersonSurname) {
+//                if (brotherSisterMatcher(rltv, prsn)) {
+//                    return true;
+//                }
+//            }
+//        }
+//
+//        return pass;
+//    }
+//
+//    private boolean brotherSisterMatcher(String relativeSurname, String personSurname) {
+//        boolean pass = false;
+//
+//        String rltvSurname = relativeSurname.replaceAll("(aitė|ūtė|ytė|is|s)$", "");
+//        String prsnSurname = personSurname.replaceAll("(aitė|ūtė|ytė|is|s)$", "");
+//        if (rltvSurname.matches(prsnSurname)
+//                && isRelateiveTest(relativeSurname, personSurname)) {
+//            return true;
+//        }
+//
+//        return pass;
+//    }
+//
+//    public boolean isParentChildren(Person relative, Person person) {
+//        boolean pass = false;
+//
+//        String[] splittedRelativeSurname = relative.getSurname().split("-");
+//        String[] splittedPersonSurname = person.getSurname().split("-");
+//
+//        for (String rltv : splittedRelativeSurname) {
+//            for (String prsn : splittedPersonSurname) {
+//                if (parentChildrenMatcher(rltv, prsn)) {
+//                    return true;
+//                }
+//            }
+//        }
+//
+//        return pass;
+//    }
+//
+//    private boolean parentChildrenMatcher(String relativeSurname, String personSurname) {
+//        boolean pass = false;
+//
+//        String rltvSurname = relativeSurname.replaceAll("(aitė|ūtė|ytė|is|s)$", "");
+//        String prsnSurname = personSurname.replaceAll("(aitė|ūtė|ytė|is|s)$", "");
+//        if (rltvSurname.matches(prsnSurname)
+//                && isRelateiveTest(relativeSurname, personSurname)) {
+//            return true;
+//        }
+//
+//        return pass;
+//    }
+//
+//    public boolean isRelateiveTest(String relative, String person) {
+//        boolean pass = false;
+//
+//        String[] splittedRelativeSurname = relative.split("-");
+//        String[] splittedPersonSurname = person.split("-");
+//
+//        for (String rltv : splittedRelativeSurname) {
+//            for (String prsn : splittedPersonSurname) {
+//                if (surnameSubstringMatches(rltv, prsn)) {
+//                    return true;
+//                }
+//            }
+//        }
+//
+//        return pass;
+//    }
+//
+//
+//
+//    public boolean isGrandparentChildren(Person relative, Person person) {
+//        boolean pass = false;
+//
+//        String[] splittedRelativeSurname = relative.getSurname().split("-");
+//        String[] splittedPersonSurname = person.getSurname().split("-");
+//
+//        for (String rltv : splittedRelativeSurname) {
+//            for (String prsn : splittedPersonSurname) {
+//                if (parentChildrenMatcher(rltv, prsn)) {
+//                    return true;
+//                }
+//            }
+//        }
+//
+//        return pass;
+//    }
+//
+//    private boolean grandParentChildrenMatcher(String relativeSurname, String personSurname) {
+//        boolean pass = false;
+//
+//        String rltvSurname = relativeSurname.replaceAll("(aitė|ūtė|ytė|is|s)$", "");
+//        String prsnSurname = personSurname.replaceAll("(aitė|ūtė|ytė|is|s)$", "");
+//        if (rltvSurname.matches(prsnSurname)
+//                && isRelateiveTest(relativeSurname, personSurname)) {
+//            return true;
+//        }
+//
+//        return pass;
+//    }
+
 
 
 }

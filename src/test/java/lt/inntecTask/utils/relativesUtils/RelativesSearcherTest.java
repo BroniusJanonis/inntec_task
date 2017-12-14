@@ -22,7 +22,6 @@ public class RelativesSearcherTest {
     RelativesSearcher relativesSearcher;
     @Mock
     private Kinship kinship = new Kinship();
-    private RelativesDTO relativesDTO = new RelativesDTO();
 
     @Before
     public void setUp() throws Exception {
@@ -49,7 +48,7 @@ public class RelativesSearcherTest {
         when(kinship.isGrandSon(anyList(), any())).thenReturn(personList);
         when(kinship.isGrandDaugther(anyList(), any())).thenReturn(personList);
 
-        assertTrue(relativesSearcher.relativesSearchByPerson(anyList(), any()).getGrandDaughter() == personList);
+        assertEquals(relativesSearcher.relativesSearchByPerson(anyList(), any()).get("son"), personList);
         verify(kinship, times(12));
 
     }
