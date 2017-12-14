@@ -2,49 +2,51 @@
 <html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <head>
     <title>Hello, world!</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script type="text/javascript" src="${pageContext.request.contextPath}/javaScript/PersonPageScripts.js"></script>
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
 <body>
-<h1>Persons List Page</h1>
+<h1>Update Person Page With Relatives List</h1>
 
 <div>
     <div class="container">
         <div class="row">
-            <input type="text" class="searchInput" onkeyup="searchBy(1)" placeholder="Search by name..."/>
-            <input type="text" class="searchInput" onkeyup="searchBy(2)" placeholder="Search by surname..."/>
-            <input type="text" class="searchInput" onkeyup="searchBy(3)" placeholder="Search by date..."/>
+                <form:form action="updastePeron" modelAttribute="person" method="post">
+                        <form:input type="text" name="id" value="${person.getId()}" path="" readonly="true"/><br>
+                        <form:input type="text" name="name" value="${person.getName()}" autofocus="true" path=""/>
+                        <form:errors path="name"></form:errors><br>
+                        <form:input type="text" name="surname" value="${person.getSurname()}" path=""/>
+                        <form:errors path="surname"></form:errors><br>
+                        <form:input type="date" name="date" value="${person.getDate()}" path=""/>
+                        <form:errors path="date"></form:errors><br>
+                        <form:button type="submit" class="button"> Update</form:button>
+                </form:form>
         </div>
         <div class="row">
-            <table id="myTable">
+            <label>Relatives: </label>
+            <table class="table-view">
                 <tr>
-                    <td>Id</td>
+                    <td>Relationship</td>
                     <td>Name</td>
                     <td>Surname</td>
                     <td>Birth Date</td>
-                    <td>Update and find Relatives</td>
                 </tr>
-                <c:forEach var="person" items="${personList}">
-                    <form action="selectedPerson" method="post">
-                        <tr>
-                            <td><input type="text" name="id" value="${person.getId()}" hidden/>${person.getId()}</td>
-                            <td><input type="text" name="name" value="${person.getName()}" hidden/>${person.getName()}</td>
-                            <td><input type="text" name="surname" value="${person.getSurname()}" hidden/>${person.getSurname()}</td>
-                            <td><input type="text" name="date" value="${person.getDate()}" hidden/>${person.getDate()}</td>
-                            <td>
-                                <button type="submit" class="button"> Update</button>
-                            </td>
-                        </tr>
-                    </form>
+                <c:forEach var="son" items="${sonList}">
+                    <tr>
+                        <td>Son</td>
+                        <td>${son.getName()}</td>
+                        <td>${son.getSurname()}</td>
+                        <td>${son.getDate()}</td>
+                    </tr>
                 </c:forEach>
             </table>
         </div>

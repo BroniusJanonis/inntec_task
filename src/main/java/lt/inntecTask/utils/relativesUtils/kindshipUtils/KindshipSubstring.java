@@ -2,6 +2,7 @@ package lt.inntecTask.utils.relativesUtils.kindshipUtils;
 
 import lt.inntecTask.models.Person;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @Component
 public class KindshipSubstring {

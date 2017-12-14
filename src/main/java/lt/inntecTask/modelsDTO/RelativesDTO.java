@@ -2,7 +2,6 @@ package lt.inntecTask.modelsDTO;
 
 import lt.inntecTask.models.Person;
 
-import javax.persistence.Entity;
 import java.util.List;
 
 public class RelativesDTO {
@@ -20,7 +19,24 @@ public class RelativesDTO {
     private List<Person> grandDaughter;
 
     // TO DO: DESIGN PATTERN BUILDER
+
+
     public RelativesDTO() {
+    }
+
+    public RelativesDTO(List<Person> son, List<Person> daughter, List<Person> husband, List<Person> wife, List<Person> father, List<Person> mother, List<Person> grandfather, List<Person> grandmother, List<Person> brother, List<Person> sister, List<Person> grandSon, List<Person> grandDaughter) {
+        this.son = son;
+        this.daughter = daughter;
+        this.husband = husband;
+        this.wife = wife;
+        this.father = father;
+        this.mother = mother;
+        this.grandfather = grandfather;
+        this.grandmother = grandmother;
+        this.brother = brother;
+        this.sister = sister;
+        this.grandSon = grandSon;
+        this.grandDaughter = grandDaughter;
     }
 
     public List<Person> getSon() {
