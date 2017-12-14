@@ -1,9 +1,7 @@
 package lt.inntecTask.utils.relativesUtils;
 
 import lt.inntecTask.models.Person;
-import lt.inntecTask.modelsDTO.RelativesDTO;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;

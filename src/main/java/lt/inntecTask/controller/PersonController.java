@@ -1,9 +1,7 @@
 package lt.inntecTask.controller;
 
 import lt.inntecTask.models.Person;
-import lt.inntecTask.modelsDTO.RelativesDTO;
 import lt.inntecTask.repository.IPersonDao;
-import lt.inntecTask.utils.relativesUtils.Kinship;
 import lt.inntecTask.utils.validatorsUtils.PersonValidator;
 import lt.inntecTask.utils.relativesUtils.RelativesSearcher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

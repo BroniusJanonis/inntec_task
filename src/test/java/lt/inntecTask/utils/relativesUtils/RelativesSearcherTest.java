@@ -1,7 +1,6 @@
 package lt.inntecTask.utils.relativesUtils;
 
 import lt.inntecTask.models.Person;
-import lt.inntecTask.modelsDTO.RelativesDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

@@ -21,7 +21,7 @@ public class Kinship {
                 .filter(s -> yearsSubtraction.yearsGap(person.getDate(), s.getDate()) >= 16
                         && yearsSubtraction.yearsGap(person.getDate(), s.getDate()) <= 40
                         && yearsSubtraction.firstIsOlder(person.getDate(), s.getDate())
-                        && relative.isRelateive(s, person)
+                        && relative.isSonGrandSon(s, person)
                         && relative.isMan(s))
                 .collect(Collectors.toList());
         return prsnList;
@@ -32,7 +32,8 @@ public class Kinship {
                 .filter(s -> yearsSubtraction.yearsGap(person.getDate(), s.getDate()) >= 16
                         && yearsSubtraction.yearsGap(person.getDate(), s.getDate()) <= 40
                         && yearsSubtraction.firstIsOlder(person.getDate(), s.getDate())
-                        && relative.isRelateive(s, person)
+//                        && relative.isNoSpouseNoSibling(s, person)
+                        && relative.isDaugtherGrandDaughter(s, person)
                         && relative.isWoman(s))
                 .collect(Collectors.toList());
         return prsnList;
@@ -43,7 +44,7 @@ public class Kinship {
                 .filter(s -> yearsSubtraction.yearsGap(s.getDate(), person.getDate()) >= 16
                         && yearsSubtraction.yearsGap(s.getDate(), person.getDate()) <= 40
                         && yearsSubtraction.firstIsOlder(s.getDate(), person.getDate())
-                        && relative.isRelateive(s, person)
+                        && relative.isNoSpouseNoSibling(s, person)
                         && relative.isMan(s))
                 .collect(Collectors.toList());
         return prsnList;
@@ -54,7 +55,7 @@ public class Kinship {
                 .filter(s -> yearsSubtraction.yearsGap(s.getDate(), person.getDate()) >= 16
                         && yearsSubtraction.yearsGap(s.getDate(), person.getDate()) <= 40
                         && yearsSubtraction.firstIsOlder(s.getDate(), person.getDate())
-                        && relative.isRelateive(s, person)
+                        && relative.isNoSpouseNoSibling(s, person)
                         && relative.isWoman(s))
                 .collect(Collectors.toList());
         return prsnList;
@@ -64,7 +65,7 @@ public class Kinship {
         prsnList = personList.stream()
                 .filter(s -> yearsSubtraction.yearsGap(s.getDate(), person.getDate()) >= 0
                         && yearsSubtraction.yearsGap(s.getDate(), person.getDate()) <= 15
-                        && relative.isRelateive(s, person)
+                        && relative.isBrotherOrSister(s, person)
                         && relative.isMan(s))
                 .collect(Collectors.toList());
         return prsnList;
@@ -74,7 +75,7 @@ public class Kinship {
         prsnList = personList.stream()
                 .filter(s -> yearsSubtraction.yearsGap(s.getDate(), person.getDate()) >= 0
                         && yearsSubtraction.yearsGap(s.getDate(), person.getDate()) <= 15
-                        && relative.isRelateive(s, person)
+                        && relative.isBrotherOrSister(s, person)
                         && relative.isWoman(s))
                 .collect(Collectors.toList());
         return prsnList;
@@ -83,11 +84,10 @@ public class Kinship {
     public List<Person> isWife(List<Person> personList, Person person) {
         prsnList = personList.stream()
                 .filter(s -> yearsSubtraction.yearsGap(s.getDate(), person.getDate()) >= 0
-                        && yearsSubtraction.yearsGap(s.getDate(), person.getDate()) <= 15
-                        && relative.isSpouse(s, person)
-                        && relative.isRelateive(s, person)
-                        && relative.isWoman(s)
-                        && relative.isMan(person)
+                                && yearsSubtraction.yearsGap(s.getDate(), person.getDate()) <= 15
+                                && relative.isSpouse(s, person)
+                                && relative.isWoman(s)
+                                && relative.isMan(person)
                 )
                 .collect(Collectors.toList());
         return prsnList;
@@ -96,11 +96,10 @@ public class Kinship {
     public List<Person> isHusband(List<Person> personList, Person person) {
         prsnList = personList.stream()
                 .filter(s -> yearsSubtraction.yearsGap(s.getDate(), person.getDate()) >= 0
-                        && yearsSubtraction.yearsGap(s.getDate(), person.getDate()) <= 15
-                        && relative.isSpouse(s, person)
-                        && relative.isRelateive(s, person)
-                        && relative.isMan(s)
-                        && relative.isWoman(person)
+                                && yearsSubtraction.yearsGap(s.getDate(), person.getDate()) <= 15
+                                && relative.isSpouse(s, person)
+                                && relative.isMan(s)
+                                && relative.isWoman(person)
                 )
                 .collect(Collectors.toList());
         return prsnList;
@@ -109,9 +108,9 @@ public class Kinship {
     public List<Person> isGrandSon(List<Person> personList, Person person) {
         prsnList = personList.stream()
                 .filter(s -> yearsSubtraction.yearsGap(s.getDate(), person.getDate()) >= 41
-                        && yearsSubtraction.firstIsOlder(person.getDate(), s.getDate())
-                        && relative.isRelateive(s, person)
-                        && relative.isMan(s)
+                                && yearsSubtraction.firstIsOlder(person.getDate(), s.getDate())
+                                && relative.isSonGrandSon(s, person)
+                                && relative.isMan(s)
                 )
                 .collect(Collectors.toList());
         return prsnList;
@@ -120,9 +119,10 @@ public class Kinship {
     public List<Person> isGrandDaugther(List<Person> personList, Person person) {
         prsnList = personList.stream()
                 .filter(s -> yearsSubtraction.yearsGap(s.getDate(), person.getDate()) >= 41
-                        && yearsSubtraction.firstIsOlder(person.getDate(), s.getDate())
-                        && relative.isRelateive(s, person)
-                        && relative.isWoman(s)
+                                && yearsSubtraction.firstIsOlder(person.getDate(), s.getDate())
+//                                && relative.isNoSpouseNoSibling(s, person)
+                                && relative.isDaugtherGrandDaughter(s, person)
+                                && relative.isWoman(s)
                 )
                 .collect(Collectors.toList());
         return prsnList;
@@ -131,9 +131,9 @@ public class Kinship {
     public List<Person> isGrandFather(List<Person> personList, Person person) {
         prsnList = personList.stream()
                 .filter(s -> yearsSubtraction.yearsGap(person.getDate(), s.getDate()) >= 41
-                        && yearsSubtraction.firstIsOlder(s.getDate(), person.getDate())
-                        && relative.isRelateive(s, person)
-                        && relative.isMan(s)
+                                && yearsSubtraction.firstIsOlder(s.getDate(), person.getDate())
+                                && relative.isNoSpouseNoSibling(s, person)
+                                && relative.isMan(s)
                 )
                 .collect(Collectors.toList());
         return prsnList;
@@ -143,7 +143,7 @@ public class Kinship {
         prsnList = personList.stream()
                 .filter(s -> yearsSubtraction.yearsGap(person.getDate(), s.getDate()) >= 41
                         && yearsSubtraction.firstIsOlder(s.getDate(), person.getDate())
-                        && relative.isRelateive(s, person)
+                        && relative.isNoSpouseNoSibling(s, person)
                         && relative.isWoman(s))
                 .collect(Collectors.toList());
         return prsnList;

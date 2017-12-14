@@ -18,7 +18,6 @@ public class PersonValidator implements Validator{
     public void validate(Object oPerson, Errors errors) {
         Person person = (Person) oPerson;
 
-        // TO DO: must set fields in Enum class
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "EmptyName");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "surname", "EmptySurname");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "date", "EmptyDate");
