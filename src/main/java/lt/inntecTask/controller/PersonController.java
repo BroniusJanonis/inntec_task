@@ -28,8 +28,6 @@ public class PersonController {
     @Autowired
     private RelativesSearcher relativesSearcher;
     @Autowired
-    Kinship kinship;
-    @Autowired
     private IPersonDao personDao;
 
 
@@ -53,9 +51,6 @@ public class PersonController {
 
         personValidator.validate(person, bindresult);
         if(bindresult.hasErrors()){
-            List<Person> personList = personDao.personList();
-//            RelativesDTO relativesDTOS = relativesSearcher.relativesSearchByPerson(personList, person);
-//            model.addAttribute("relativesList", relativesDTOS);
             return "SelectedPerson";
         }
         personDao.updatePerson(person);
